@@ -1,0 +1,17 @@
+-- Compute weighted CGPA for students in a database.
+DELIMITER //
+CREATE PROCEDURE ComputeAverageWeightedScoreForUser(IN user_id INT)
+BEGIN
+    UPDATE users
+    SET average_score = (
+        SELECT sum(corrections.score * projects.weight) / sum(projects.weight)
+        FROM corrections
+        INNER JOIN projects
+        ON projects.id = corrections.project_id
+        WHERE corrections.user_id = user_id
+    )
+    WHERE id = user_id;
+END $$
+
+DELIMITER ;
+
