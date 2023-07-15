@@ -1,3 +1,4 @@
+-- Create a trigger for reset
 DELIMITER //
 
 CREATE TRIGGER decrease_quantity AFTER INSERT ON orders
